@@ -12,9 +12,9 @@ package fracciones;
 public class fraccion {
     int numerador, denominador;
 
-    public fraccion(int numerador, int deniminador) {
+    public fraccion(int numerador, int denominador) {
         this.numerador = numerador;
-        this.denominador = deniminador;
+        this.denominador = denominador;
     }
     
     public fraccion sumar(fraccion frac2){
