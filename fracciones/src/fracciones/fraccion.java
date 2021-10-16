@@ -27,7 +27,7 @@ public class fraccion {
         return resultado;
     }
     
-    private void simplificar(){
+    public void simplificar(){              //quería dejar este método privado, pero puede ser util para simplificar una fracción individual desde la clase principal
         int menor=1, mayor=1, mcd=1;
         
         if (denominador==1 && numerador==1) {
