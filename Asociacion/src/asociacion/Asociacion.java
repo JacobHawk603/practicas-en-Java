@@ -35,9 +35,9 @@ public class Asociacion {
         clientes.add(Mario);
         
         //creando las cuentas
-        Cuenta ahorro = new Cuenta("ahorro",1, "direccion1");
-        Cuenta libreton = new Cuenta("libreton", 2, "direccion2");
-        Cuenta debito_basica = new Cuenta("debito_basica", 3, "direccion3");
+        Cuenta ahorro = new Cuenta("ahorro");
+        Cuenta libreton = new Cuenta("libreton");
+        Cuenta debito_basica = new Cuenta("debito_basica");
         
         //asignando las cuentas a la lista correspondiente
         cuentas.add(ahorro);
@@ -59,43 +59,11 @@ public class Asociacion {
             if(x>=0 && x<4){
                 Ventanas.cuadroDeAccion("Cuentas que posee "+clientes.get(x-1).getNombre()+": \n\n"+
                         clientes.get(x-1).showAccounts()+"\n"
-                );
-                
+                );                               
             }else{
                 bandera=false;
                 System.exit(0);                
             }
-        }
-
-        
-        /*switch(x){
-            case 1:
-                Ventanas.CuadroDeTexto("Cuentas que posee "+clientes.get(x-1).getNombre()+": \n\n"+
-                        clientes.get(x-1).showAccounts()+"\n", 0
-                );
-                break;
-            case 2:
-                Ventanas.CuadroDeTexto("Cuentas que posee "+clientes.get(x-1).getNombre()+": \n\n"+
-                        clientes.get(x-1).showAccounts()+"\n", 0
-                );
-                break;
-            case 3:
-                Ventanas.CuadroDeTexto("Cuentas que posee "+clientes.get(x-1).getNombre()+": \n\n"+
-                        clientes.get(x-1).showAccounts()+"\n", 0
-                );
-                break;
-            default: System.exit(0);
-        }*/
-        
-        
-        for(Cliente i: clientes){
-            System.out.println(i.getNombre());
-            for(Cuenta j: i.getCts()){
-                System.out.println(j.getNomCuenta());
-            }
-        }
-        for(Cuenta i: cuentas){
-            System.out.println(i.getNomCuenta());
         }
     }
     
