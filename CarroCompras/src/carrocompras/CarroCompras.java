@@ -123,9 +123,6 @@ public class CarroCompras {
                             }else{
                                 Ventanas.CuadroDeTexto("valor insertado fuera de rango", 2);
                             }
-                            
-                            
-                            //clientes.get(x-1).getCarro().getArticulos()
                         break;
                         
                         case 4:
