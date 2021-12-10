@@ -30,5 +30,33 @@ public class Triangulo extends Figura {
         return (ladoBase * LadoAltura)/2;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void dibujar() {
+        
+        System.out.println("Este es el metodo dibujar del Triangulo");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mover() {
+        
+        System.out.println("Este es el metodo mover del Triangulo");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void borrar() {
+        
+        System.out.println("Este es el metodo borrar para el Triangulo");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void modificarTamano() {
+        
+        System.out.println("Este es el metodo modificar Tamano para el Triangulo");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

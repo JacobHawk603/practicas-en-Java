@@ -19,5 +19,9 @@ public abstract class Figura {
     
     public abstract double Perimetro();
     public abstract double area();
+    public abstract void dibujar();
+    public abstract void mover();
+    public abstract void borrar();
+    public abstract void modificarTamano();
 }
 

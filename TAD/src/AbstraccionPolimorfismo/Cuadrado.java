@@ -28,5 +28,33 @@ public class Cuadrado extends Figura {
         return Math.pow(ladoBase, 2);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void dibujar() {
+        
+        System.out.println("Este es el metodo dibujar del Cuadrado");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mover() {
+        
+        System.out.println("Este es el metodo mover del Cuadrado");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void borrar() {
+        
+        System.out.println("Este es el metodo borrar para el Cuadrado");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void modificarTamano() {
+        
+        System.out.println("Este es el metodo modificar Tamano para el Cuadrado");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
