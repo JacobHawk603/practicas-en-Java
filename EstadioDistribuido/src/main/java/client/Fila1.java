@@ -20,7 +20,7 @@ public class Fila1 extends Thread {
 
     //variables para la conexion socket
     private int port = 1234;            //<- se puede cambiar dependiendo la situacion
-    private String ip = "127.0.0.1";    //<- se cambia si es local o remoto
+    private String ip = "192.168.1.74";    //<- se cambia si es local o remoto
     private Socket socket;
     private DataOutputStream salida;
     private BufferedReader entrada;
@@ -48,7 +48,11 @@ public class Fila1 extends Thread {
     
     public void run(){
          try{
-             while(entrada.read() < 200){
+             //System.out.println(entrada.read());
+             int contador = 0;
+             while(entrada.read() < 30){
+                 
+                 
                 while(i==0){
                     //System.out.println(Frame.fila1[19].getIcon().toString());
 
@@ -60,30 +64,36 @@ public class Fila1 extends Thread {
                        Thread.sleep(100 * 4);
 
                         //Frame.fila1[i].setIcon(new ImageIcon("src/imagenes/little stickman.jpg")); 
-                        salida.writeUTF("Fila1");
+                        salida.write(1);
                         
                         System.out.println("El vendedor Despachó al cliente "+i);
 
-                   }
+                    }
                    
-                       Thread.sleep(100);
-                       //Frame.x += 5;
-                       salida.writeInt(5);
-                       
-                       //Frame.usuarios.setText("x "+Frame.x);
-                       
+                    Thread.sleep(100);
+                    //Frame.x += 5;
+                    salida.write(0);
+
+                    //Frame.usuarios.setText("x "+Frame.x);
+
                     //for (int j = 0; j < 20; j++) {
-                        //Frame.fila1[j].setIcon(new ImageIcon("")); 
+                         //Frame.fila1[j].setIcon(new ImageIcon("")); 
                     //}
-                    salida.writeUTF("Fila1Empty");
-                    if(entrada.read() < 180){
+                    Thread.sleep(100 * 3);
+                    salida.write(0);
+                    if(entrada.read() < 10){
                         i=0;
                         cont+=10;
                     }else{
                         
                     }
                     System.out.println("Esto es el contador de la fila 1: "+cont);
-                }    
+                    
+                    contador = entrada.read();
+                    System.out.println("contador: "+contador);
+                }  
+                
+                
              }
         }catch(Exception e){
              System.out.println("Ha ocurrido algo en la fila 1");
