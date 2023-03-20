@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.estadiodistribuido;
+package server;
 
 /**
  *
@@ -13,8 +13,10 @@ public class EstadioDistribuido {
     public static void main(String[] args) {
         
         System.out.println("hola, me veo?");
-        conector miConector = new conector();
+        Frame server = new Frame();
         
-        miConector.iniciar();
+        server.montar(1234);
+        
+        server.Launcher();
     }
 }
