@@ -25,7 +25,7 @@ public class Frame extends JFrame{
     
     static JLabel[] fila1, fila2;
     static JLabel man, pensamiento1, pensamiento2, asientos, usuarios;
-    static int x;
+    static int x = 0;
     //private Thread hilo1, hilo2, hilo3, hilo4;
     
     //variables para la coneccion socket
@@ -40,11 +40,11 @@ public class Frame extends JFrame{
         this.setResizable(false);
         this.setLayout(new FlowLayout());
         
-        this.setContentPane(new JLabel(new ImageIcon("src/imagenes/stadium.jpg")));
+        this.setContentPane(new JLabel(new ImageIcon("src/main/java/imagenes/stadium.jpg")));
 
         
         
-        man = new JLabel(new ImageIcon("src/imagenes/stickman.jpg"));
+        man = new JLabel(new ImageIcon("src/main/java/imagenes/stickman.jpg"));
         man.setBounds(650, 520, 100, 146);
         add(man);
         
@@ -113,6 +113,8 @@ public class Frame extends JFrame{
     }
     
     protected void montar(int port){
+        int cont_fila1 = 0, cont_fila2 = 0, cont_fila3 = 0;
+        
         try{
             server = new ServerSocket(port);
             
@@ -121,8 +123,7 @@ public class Frame extends JFrame{
             //fila 1
             fila1_socket = new Socket();
             fila1_socket = server.accept();
-            fila1Input = new BufferedReader(new InputStreamReader(fila1_socket.getInputStream()));
-            fila1Output = new DataOutputStream(fila1_socket.getOutputStream());
+            
             
             System.out.println("la fila 1 está conectada");
             
@@ -135,6 +136,30 @@ public class Frame extends JFrame{
            
             
             System.out.println("servidor montado y listo para la simulación");
+            
+            //fila 1
+            fila1Input = new BufferedReader(new InputStreamReader(fila1_socket.getInputStream()));
+            fila1Output = new DataOutputStream(fila1_socket.getOutputStream());
+            
+            while(true){
+                
+                fila1Output.write(x);
+                
+                if(fila1Input.read() == 1){
+                    fila1[cont_fila1].setIcon(new ImageIcon("src/main/java/imagenes/little stickman.jpg"));
+                    cont_fila1 ++;
+                }else if(fila1Input.read() == 0){
+                    cont_fila1 = 0;
+                    for (int i = 0; i < 20; i++) {
+                        fila1[i].setIcon(new ImageIcon(""));
+                    }
+                    x+=10;
+                    usuarios.setText("x "+ x);   
+                    
+                }
+                
+                System.out.println(fila1Input.read());
+            }
             
         }catch(Exception e){
             System.out.println("ha ocurrido un error en el servidor");

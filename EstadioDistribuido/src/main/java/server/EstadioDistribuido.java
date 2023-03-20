@@ -14,9 +14,9 @@ public class EstadioDistribuido {
         
         System.out.println("hola, me veo?");
         Frame server = new Frame();
-        
+        server.Launcher();
         server.montar(1234);
         
-        server.Launcher();
+        
     }
 }
