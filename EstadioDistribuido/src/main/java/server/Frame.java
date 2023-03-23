@@ -30,9 +30,9 @@ public class Frame extends JFrame{
     
     //variables para la coneccion socket
     private ServerSocket server;
-    private Socket fila1_socket, fila2_socket;
-    DataOutputStream fila1Output, fila2Output;
-    BufferedReader fila1Input, fila2Input;
+    private Socket fila1_socket, fila2_socket, venta;
+    DataOutputStream fila1Output, fila2Output, ventaOutput;
+    BufferedReader fila1Input, fila2Input, ventaInput;
     
     public Frame(){
         super("Ejemplo de uso de Hilos en Java");
@@ -131,13 +131,15 @@ public class Frame extends JFrame{
             fila2_socket = new Socket();
             fila2_socket = server.accept();
             
-            System.out.println("la fila 2 está conectada");
+            System.out.println("la fila 2 está conectada\n\npreparando proceso de venta...");
             
             //asientos usados
             
             //venta boletos
+            venta = new Socket();
+            venta = server.accept();
             
-           
+            System.out.println("El vendedor está listo\n\n");
             
             System.out.println("servidor montado y listo para la simulación");
             
@@ -153,6 +155,8 @@ public class Frame extends JFrame{
                 
                 fila1Output.write(x);
                 fila2Output.write(x);
+                ventaOutput.write(x);
+                //CONTROL FILA 1
                 
                 if(fila1Input.read() == 1){
                     fila1[cont_fila1].setIcon(new ImageIcon("src/main/java/imagenes/little stickman.jpg"));
@@ -167,6 +171,8 @@ public class Frame extends JFrame{
                     
                 }
                 
+                //CONTROL FILA 2
+                
                 if(fila2Input.read() == 1){
                     fila2[cont_fila2].setIcon(new ImageIcon("src/main/java/imagenes/little stickman.jpg"));
                     cont_fila2 ++;
@@ -178,6 +184,21 @@ public class Frame extends JFrame{
                     x+=20;
                     usuarios.setText("x "+ x);   
                     
+                }
+                
+                //CONTROL VENTA DE BOLETOS
+                
+                if(ventaInput.read() == 1){
+                    pensamiento1.setText("Comprador: un boleto plis");
+                }else if(ventaInput.read() == 2){
+                    pensamiento1.setText("");
+                    pensamiento2.setText("Vendedor: Claro, aquí tiene");
+                }else if(ventaInput.read() == 3){
+                    pensamiento2.setText("");
+                    pensamiento1.setText("Comprador: Muchas Gracias");
+                }else if(ventaInput.read() == 4){
+                    pensamiento1.setText("");
+                    pensamiento2.setText("Vendedor: De nada");
                 }
                 
                 System.out.println(fila2Input.read());
