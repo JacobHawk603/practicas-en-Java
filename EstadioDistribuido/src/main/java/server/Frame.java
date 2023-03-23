@@ -30,9 +30,9 @@ public class Frame extends JFrame{
     
     //variables para la coneccion socket
     private ServerSocket server;
-    private Socket fila1_socket;
-    DataOutputStream fila1Output;
-    BufferedReader fila1Input;
+    private Socket fila1_socket, fila2_socket;
+    DataOutputStream fila1Output, fila2Output;
+    BufferedReader fila1Input, fila2Input;
     
     public Frame(){
         super("Ejemplo de uso de Hilos en Java");
@@ -125,9 +125,13 @@ public class Frame extends JFrame{
             fila1_socket = server.accept();
             
             
-            System.out.println("la fila 1 está conectada");
+            System.out.println("la fila 1 está conectada\n\nEsperando conexion con la fila 2...");
             
             //fila 2
+            fila2_socket = new Socket();
+            fila2_socket = server.accept();
+            
+            System.out.println("la fila 2 está conectada");
             
             //asientos usados
             
@@ -141,9 +145,14 @@ public class Frame extends JFrame{
             fila1Input = new BufferedReader(new InputStreamReader(fila1_socket.getInputStream()));
             fila1Output = new DataOutputStream(fila1_socket.getOutputStream());
             
+            //fila2
+            fila2Input = new BufferedReader(new InputStreamReader(fila2_socket.getInputStream()));
+            fila2Output = new DataOutputStream(fila2_socket.getOutputStream());
+            
             while(true){
                 
                 fila1Output.write(x);
+                fila2Output.write(x);
                 
                 if(fila1Input.read() == 1){
                     fila1[cont_fila1].setIcon(new ImageIcon("src/main/java/imagenes/little stickman.jpg"));
@@ -158,7 +167,20 @@ public class Frame extends JFrame{
                     
                 }
                 
-                System.out.println(fila1Input.read());
+                if(fila2Input.read() == 1){
+                    fila2[cont_fila2].setIcon(new ImageIcon("src/main/java/imagenes/little stickman.jpg"));
+                    cont_fila2 ++;
+                }else if(fila2Input.read() == 0){
+                    cont_fila2 = 0;
+                    for (int i = 0; i < 20; i++) {
+                        fila2[i].setIcon(new ImageIcon(""));
+                    }
+                    x+=20;
+                    usuarios.setText("x "+ x);   
+                    
+                }
+                
+                System.out.println(fila2Input.read());
             }
             
         }catch(Exception e){
