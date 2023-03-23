@@ -50,7 +50,7 @@ public class Fila1 extends Thread {
          try{
              //System.out.println(entrada.read());
              int contador = 0;
-             while(entrada.read() < 30){
+             while(entrada.read() < 200){
                  
                  
                 while(i==0){
@@ -81,7 +81,7 @@ public class Fila1 extends Thread {
                     //}
                     Thread.sleep(100 * 3);
                     salida.write(0);
-                    if(entrada.read() < 10){
+                    if(entrada.read() < 180){
                         i=0;
                         cont+=10;
                     }else{
