@@ -151,6 +151,10 @@ public class Frame extends JFrame{
             fila2Input = new BufferedReader(new InputStreamReader(fila2_socket.getInputStream()));
             fila2Output = new DataOutputStream(fila2_socket.getOutputStream());
             
+            //venta Boletos
+            ventaInput = new BufferedReader(new InputStreamReader(venta.getInputStream()));
+            ventaOutput = new DataOutputStream(venta.getOutputStream());
+            
             while(true){
                 
                 fila1Output.write(x);
@@ -201,7 +205,7 @@ public class Frame extends JFrame{
                     pensamiento2.setText("Vendedor: De nada");
                 }
                 
-                System.out.println(fila2Input.read());
+                System.out.println(ventaInput.read());
             }
             
         }catch(Exception e){
