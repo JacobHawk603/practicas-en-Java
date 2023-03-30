@@ -16,6 +16,10 @@ import javax.swing.*;
 
 import java.net.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import Bitacora.GestorBitacora;
 
 /**
  *
@@ -33,6 +37,10 @@ public class Frame extends JFrame{
     private Socket fila1_socket, fila2_socket, venta;
     DataOutputStream fila1Output, fila2Output, ventaOutput;
     BufferedReader fila1Input, fila2Input, ventaInput;
+    
+    //añadimos la bitacora
+    static Logger bitacora = GestorBitacora.getBitacora("server.Frame", "Bitacora_servidor.txt", Level.FINE);
+    
     
     public Frame(){
         super("Ejemplo de uso de Hilos en Java");
@@ -115,10 +123,12 @@ public class Frame extends JFrame{
     protected void montar(int port){
         int cont_fila1 = 0, cont_fila2 = 0, cont_fila3 = 0;
         
+        
         try{
             server = new ServerSocket(port);
             
             System.out.println("esperando coneccion con los subprocesos...");
+            bitacora.fine("servidor esperando coneccion con los subprocesos");
             
             //fila 1
             fila1_socket = new Socket();
@@ -126,13 +136,13 @@ public class Frame extends JFrame{
             
             
             System.out.println("la fila 1 está conectada\n\nEsperando conexion con la fila 2...");
-            
+            bitacora.fine("servidor esperando conexion con la fila 2");
             //fila 2
             fila2_socket = new Socket();
             fila2_socket = server.accept();
             
             System.out.println("la fila 2 está conectada\n\npreparando proceso de venta...");
-            
+            bitacora.fine("servidor esperando conexion con el proceso de venta de boletos");
             //asientos usados
             
             //venta boletos
@@ -142,18 +152,22 @@ public class Frame extends JFrame{
             System.out.println("El vendedor está listo\n\n");
             
             System.out.println("servidor montado y listo para la simulación");
+            bitacora.fine("servidor montado y listo para la simulación");
             
             //fila 1
             fila1Input = new BufferedReader(new InputStreamReader(fila1_socket.getInputStream()));
             fila1Output = new DataOutputStream(fila1_socket.getOutputStream());
+            bitacora.fine("Flujos de entrada y salida con la fila 1 establecidos");
             
             //fila2
             fila2Input = new BufferedReader(new InputStreamReader(fila2_socket.getInputStream()));
             fila2Output = new DataOutputStream(fila2_socket.getOutputStream());
+            bitacora.fine("Flujos de entrada y salida con la fila 2 establecidos");
             
             //venta Boletos
             ventaInput = new BufferedReader(new InputStreamReader(venta.getInputStream()));
             ventaOutput = new DataOutputStream(venta.getOutputStream());
+            bitacora.fine("Flujos de entrada y salida con la venta de boletos establecidos");
             
             while(true){
                 
@@ -165,6 +179,8 @@ public class Frame extends JFrame{
                 if(fila1Input.read() == 1){
                     fila1[cont_fila1].setIcon(new ImageIcon("src/main/java/imagenes/little stickman.jpg"));
                     cont_fila1 ++;
+                    bitacora.fine("se recibió un 1 por parte del cliente fila 1");
+                    
                 }else if(fila1Input.read() == 0){
                     cont_fila1 = 0;
                     for (int i = 0; i < 20; i++) {
@@ -172,7 +188,7 @@ public class Frame extends JFrame{
                     }
                     x+=10;
                     usuarios.setText("x "+ x);   
-                    
+                    bitacora.fine("se recibió un 0 por parte del cliente fila 1");
                 }
                 
                 //CONTROL FILA 2
@@ -180,6 +196,8 @@ public class Frame extends JFrame{
                 if(fila2Input.read() == 1){
                     fila2[cont_fila2].setIcon(new ImageIcon("src/main/java/imagenes/little stickman.jpg"));
                     cont_fila2 ++;
+                    bitacora.fine("se recibió un 1 por parte del cliente fila 2");
+                    
                 }else if(fila2Input.read() == 0){
                     cont_fila2 = 0;
                     for (int i = 0; i < 20; i++) {
@@ -187,6 +205,7 @@ public class Frame extends JFrame{
                     }
                     x+=20;
                     usuarios.setText("x "+ x);   
+                    bitacora.fine("se recibió un 0 por parte del cliente fila 2");
                     
                 }
                 
@@ -194,21 +213,31 @@ public class Frame extends JFrame{
                 
                 if(ventaInput.read() == 1){
                     pensamiento1.setText("Comprador: un boleto plis");
+                    bitacora.fine("se recibió un 1 por parte del cliente venta Boletos");
+                    
                 }else if(ventaInput.read() == 2){
                     pensamiento1.setText("");
                     pensamiento2.setText("Vendedor: Claro, aquí tiene");
+                    bitacora.fine("se recibió un 2 por parte del cliente venta Boletos");
+                    
                 }else if(ventaInput.read() == 3){
                     pensamiento2.setText("");
                     pensamiento1.setText("Comprador: Muchas Gracias");
+                    bitacora.fine("se recibió un 3 por parte del cliente venta Boletos");
+                    
                 }else if(ventaInput.read() == 4){
                     pensamiento1.setText("");
                     pensamiento2.setText("Vendedor: De nada");
+                    bitacora.fine("se recibió un 4 por parte del cliente venta Boletos");
+                    
                 }
                 
                 System.out.println(ventaInput.read());
             }
             
         }catch(Exception e){
+            bitacora.severe("Un error provó el colapso de la simulación");
+            
             System.out.println("ha ocurrido un error en el servidor");
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());

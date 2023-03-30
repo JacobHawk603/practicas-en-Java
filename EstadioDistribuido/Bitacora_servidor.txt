@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-03-28T05:39:03.148601573Z</date>
+  <millis>1679981943148</millis>
+  <nanos>601573</nanos>
+  <sequence>0</sequence>
+  <logger>server.Frame</logger>
+  <level>FINE</level>
+  <class>server.Frame</class>
+  <method>montar</method>
+  <thread>1</thread>
+  <message>servidor esperando coneccion con los subprocesos</message>
+</record>
+</log>

@@ -10,6 +10,10 @@ import javax.swing.ImageIcon;
 import java.net.*;
 import java.io.*;
 
+import Bitacora.GestorBitacora;
+import static client.Fila2.bitacora;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Jacob
@@ -25,6 +29,8 @@ public class Fila1 extends Thread {
     private DataOutputStream salida;
     private BufferedReader entrada;
 
+    static Logger bitacora = GestorBitacora.getBitacora("client.Fila1", "Bitacora_Fila1.txt", Level.FINE);
+    
     private void conectar(){
         try{
             socket = new Socket(ip, port);
@@ -36,11 +42,14 @@ public class Fila1 extends Thread {
             salida = new DataOutputStream(socket.getOutputStream());
             
             System.out.println("conexión exitosa");
+            bitacora.fine("Fila 1 conectada exitosamente al servidor");
             
         }catch(Exception e){
             System.out.println("no se pudo establecer conección con el servidor");
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
+            
+            bitacora.severe("error al conectarse al servidor: " + e.getMessage());
             
             System.exit(1);
         }
@@ -50,6 +59,8 @@ public class Fila1 extends Thread {
          try{
              //System.out.println(entrada.read());
              int contador = 0;
+             
+             bitacora.fine("cliente escuchando y mandando informacion al servidor");
              while(entrada.read() < 200){
                  
                  
@@ -95,10 +106,14 @@ public class Fila1 extends Thread {
                 
                 
              }
+             
+             bitacora.fine("Proceso terminado con exito");
         }catch(Exception e){
              System.out.println("Ha ocurrido algo en la fila 1");
              System.out.println(e.getMessage());
              System.out.println(e.getStackTrace());
+             
+             bitacora.severe("error en el subproceso: " + e.getMessage());
         }
     }
     
